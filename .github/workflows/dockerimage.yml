@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on: 
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and Publish the Docker image
+      env: 
+        PACKAGES_WORKFLOW_TOKEN: ${{ secrets.PACKAGES_WORKFLOW_TOKEN }}
+        MAJOR: 1
+        MINOR: 2
+        PATCH: 0
+      run: |
+        docker login docker.pkg.github.com --username LytvyniukDima --password $PACKAGES_WORKFLOW_TOKEN
+        docker build --file Dockerfile -t englishlearning-file-manager:$MAJOR.$MINOR.$PATCH-$GITHUB_RUN_ID --build-arg NUGET_PASS=$PACKAGES_WORKFLOW_TOKEN .
+        docker tag englishlearning-file-manager:$MAJOR.$MINOR.$PATCH-$GITHUB_RUN_ID docker.pkg.github.com/lytvyniukdima/englishlearning.filemanager/englishlearning-file-manager:latest
+        docker tag englishlearning-file-manager:$MAJOR.$MINOR.$PATCH-$GITHUB_RUN_ID docker.pkg.github.com/lytvyniukdima/englishlearning.filemanager/englishlearning-file-manager:$MAJOR.$MINOR.$PATCH-$GITHUB_RUN_ID
+        docker push docker.pkg.github.com/lytvyniukdima/englishlearning.filemanager/englishlearning-file-manager:latest
+        docker push docker.pkg.github.com/lytvyniukdima/englishlearning.filemanager/englishlearning-file-manager:$MAJOR.$MINOR.$PATCH-$GITHUB_RUN_ID

@@ -1,0 +1,34 @@
+name: Dotnet build
+
+on: 
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      SONAR_SERVER_URL: ${{ secrets.SONAR_SERVER_URL }}
+      SONAR_SERVER_TOKEN: ${{ secrets.SONAR_SERVER_TOKEN }}
+      PACKAGES_WORKFLOW_TOKEN: ${{ secrets.PACKAGES_WORKFLOW_TOKEN }}
+      PROJECT_NAME: 'EnglishLearning.FileManager'
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+        source-url: https://nuget.pkg.github.com/LytvyniukDima/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: SonarInit
+      run: |
+        dotnet tool restore
+        dotnet sonarscanner begin /k:"$PROJECT_NAME" /d:sonar.host.url="$SONAR_SERVER_URL" /d:sonar.login="$SONAR_SERVER_TOKEN" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
+    - name: Build
+      run: dotnet build -c Release
+    - name: SonnarEnd
+      run: dotnet sonarscanner end /d:sonar.login=${{env.SONAR_SERVER_TOKEN}}
