@@ -9,8 +9,8 @@ namespace EnglishLearning.FileManager.Persistence.Abstract
     {
         Task AddAsync(FileEntity file);
 
-        Task<FileEntity> Get(Guid id);
+        Task<FileEntity> GetAsync(Guid id);
 
-        Task<IReadOnlyList<FileEntity>> GetAll();
+        Task<IReadOnlyList<FileEntity>> GetAllAsync();
     }
 }

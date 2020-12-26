@@ -19,7 +19,8 @@ namespace EnglishLearning.FileManager.Persistence.Configuration
                 options.UseSqlServer(dbConfiguration.ConnectionString);
             });
 
-            services.AddScoped<IFolderEntityRepository, FolderEntityRepository>(); 
+            services.AddScoped<IFolderEntityRepository, FolderEntityRepository>();
+            services.AddScoped<IFileEntityRepository, FileEntityRepository>();
             
             return services;
         }
