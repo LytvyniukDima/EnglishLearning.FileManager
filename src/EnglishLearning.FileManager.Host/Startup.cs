@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 using EnglishLearning.FileManager.Host.Infrastructure;
+using EnglishLearning.FileManager.Persistence.Configuration;
 using EnglishLearning.Utilities.General.Extensions;
 using EnglishLearning.Utilities.Identity.Configuration;
 using EnglishLearning.Utilities.Persistence.Redis.Configuration;
@@ -45,6 +46,9 @@ namespace EnglishLearning.FileManager.Host
             services
                 .AddRedis(Configuration)
                 .AddEnglishLearningIdentity();
+
+            services
+                .AddPersistenceSettings(Configuration);
         }
         
         public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IWebHostEnvironment env)
