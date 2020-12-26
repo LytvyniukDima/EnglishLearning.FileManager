@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnglishLearning.FileManager.Persistence.Repositories
 {
-    internal class FolderRepository : IFolderRepository
+    internal class FolderEntityRepository : IFolderEntityRepository
     {
         private readonly FileManagerContext _dbContext;
 
-        public FolderRepository(FileManagerContext dbContext)
+        public FolderEntityRepository(FileManagerContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -5,7 +5,7 @@ using EnglishLearning.FileManager.Persistence.Entities;
 
 namespace EnglishLearning.FileManager.Persistence.Abstract
 {
-    public interface IFileRepository
+    public interface IFileEntityRepository
     {
         Task AddAsync(FileEntity file);
 

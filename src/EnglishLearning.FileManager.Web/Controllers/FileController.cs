@@ -8,9 +8,9 @@ namespace EnglishLearning.FileManager.Web.Controllers
     [Route("/api/file-manager/file")]
     public class FileController : Controller
     {
-        private readonly IFolderRepository _folderRepository;
+        private readonly IFolderEntityRepository _folderRepository;
 
-        public FileController(IFolderRepository folderRepository)
+        public FileController(IFolderEntityRepository folderRepository)
         {
             _folderRepository = folderRepository;
         }
@@ -18,7 +18,14 @@ namespace EnglishLearning.FileManager.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var folders = await _folderRepository.GetAsync(2);
+            var folder = new FolderEntity
+            {
+                Name = "Some new dir",
+                ParentId = 2,
+            };
+
+            await _folderRepository.AddAsync(folder);
+            var folders = await _folderRepository.GetAllAsync();
 
             return Ok(folders);
         }

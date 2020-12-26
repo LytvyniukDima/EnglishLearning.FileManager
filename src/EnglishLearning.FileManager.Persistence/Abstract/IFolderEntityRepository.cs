@@ -4,7 +4,7 @@ using EnglishLearning.FileManager.Persistence.Entities;
 
 namespace EnglishLearning.FileManager.Persistence.Abstract
 {
-    public interface IFolderRepository
+    public interface IFolderEntityRepository
     {
         Task AddAsync(FolderEntity folderEntity);
 
