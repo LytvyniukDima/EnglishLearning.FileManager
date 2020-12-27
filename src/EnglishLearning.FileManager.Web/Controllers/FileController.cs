@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
-using EnglishLearning.FileManager.Persistence.Abstract;
-using EnglishLearning.FileManager.Persistence.Entities;
+using EnglishLearning.FileManager.Application.Models;
+using EnglishLearning.FileManager.Web.ViewModels;
+using EnglishLearning.Utilities.Identity.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnglishLearning.FileManager.Web.Controllers
@@ -11,31 +14,43 @@ namespace EnglishLearning.FileManager.Web.Controllers
     [Route("/api/file-manager/file")]
     public class FileController : Controller
     {
-        private readonly IFileEntityRepository _fileRepository;
-        private readonly IFolderEntityRepository _folderRepository;
-        private readonly ITreeService _treeService;
+        private readonly IFileService _fileService;
+        private readonly IJwtInfoProvider _jwtInfoProvider;
         
         public FileController(
-            IFileEntityRepository fileRepository,
-            IFolderEntityRepository folderRepository,
-            ITreeService treeService)
+            IFileService fileService,
+            IJwtInfoProvider jwtInfoProvider)
         {
-            _fileRepository = fileRepository;
-            _folderRepository = folderRepository;
-            _treeService = treeService;
+            _fileService = fileService;
+            _jwtInfoProvider = jwtInfoProvider;
         }
-        
-        [HttpGet]
-        public async Task<ActionResult> Get()
-        {
-            // var file = await _fileRepository.GetAsync(new Guid("4E4C15CD-0255-4E50-1155-08D8AA5CDCEB"));
-            // var files = await _fileRepository.GetAllAsync();
-            // var folders = await _folderRepository.GetAllAsync();
-            // var folder = await _folderRepository.GetAsync(14);
 
-            var tree = await _treeService.GetTreeAsync();
+        [EnglishLearningAuthorize(AuthorizeRole.Admin)]
+        [HttpPost]
+        public async Task<ActionResult> CreateFile([FromForm] FileCreateViewModel file)
+        {
+            var fileCreateModel = MapFileCreateViewModelToModel(file);
+            await using var memoryStream = new MemoryStream();
+            await file.UploadedFile.CopyToAsync(memoryStream);
             
-            return Ok(tree);
+            await _fileService.CreateFileAsync(memoryStream, fileCreateModel);
+            
+            return Ok();
+        }
+
+        private FileCreateModel MapFileCreateViewModelToModel(FileCreateViewModel viewModel)
+        {
+            var metadata = JsonSerializer.Deserialize<Dictionary<string, string>>(viewModel.Metadata, new JsonSerializerOptions() { IgnoreNullValues = true });
+            
+            return new FileCreateModel
+            {
+                Id = Guid.NewGuid(),
+                Name = viewModel.Name,
+                CreatedBy = _jwtInfoProvider.UserId,
+                FolderId = viewModel.FolderId,
+                LastModified = DateTime.UtcNow,
+                Metadata = metadata,
+            };
         }
     }
 }

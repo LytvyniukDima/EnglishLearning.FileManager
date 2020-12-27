@@ -50,7 +50,7 @@ namespace EnglishLearning.FileManager.Host
 
             services
                 .AddPersistenceSettings(Configuration)
-                .AddApplicationSettings();
+                .AddApplicationSettings(Configuration);
         }
         
         public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IWebHostEnvironment env)
