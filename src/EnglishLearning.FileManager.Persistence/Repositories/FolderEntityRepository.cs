@@ -24,14 +24,15 @@ namespace EnglishLearning.FileManager.Persistence.Repositories
         public Task<FolderEntity> GetAsync(int id)
         {
             return _dbContext.Folders
-                .Include(x => x.Parent)
-                .ThenInclude(x => x.Parent.Parent)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<FolderEntity>> GetAllAsync()
         {
-            return await _dbContext.Folders.ToListAsync();
+            return await _dbContext.Folders
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

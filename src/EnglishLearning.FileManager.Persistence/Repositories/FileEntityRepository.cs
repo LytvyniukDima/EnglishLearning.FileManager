@@ -24,12 +24,16 @@ namespace EnglishLearning.FileManager.Persistence.Repositories
 
         public Task<FileEntity> GetAsync(Guid id)
         {
-            return _dbContext.Files.SingleOrDefaultAsync(x => x.Id == id);
+            return _dbContext.Files
+                .AsNoTracking()
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IReadOnlyList<FileEntity>> GetAllAsync()
         {
-            return await _dbContext.Files.ToListAsync();
+            return await _dbContext.Files
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

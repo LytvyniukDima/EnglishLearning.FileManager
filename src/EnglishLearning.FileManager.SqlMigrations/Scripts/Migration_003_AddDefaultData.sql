@@ -1,8 +1,8 @@
 SET IDENTITY_INSERT dbo.Folders ON
 INSERT INTO dbo.Folders(Id, Name, ParentId)
 VALUES
-(1, '', NULL),
-(2, 'some dir', 1),
+(1, 'level one', NULL),
+(2, 'some dir', NULL),
 (3, 'new dir', 1),
 (4, 'new dir1', 2),
 (5, 'new dir12', 2),

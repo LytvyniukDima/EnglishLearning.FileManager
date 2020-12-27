@@ -7,7 +7,5 @@ namespace EnglishLearning.FileManager.Persistence.Entities
         public string Name { get; set; }
         
         public int? ParentId { get; set; }
-        
-        public FolderEntity Parent { get; set; }
     }
 }

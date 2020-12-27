@@ -24,10 +24,12 @@ namespace EnglishLearning.FileManager.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            //var newFile = await _fileRepository.GetAsync(new Guid("02b4af32-4f97-4f6e-f2ee-08d8a9cd7a91"));
-            var files = await _fileRepository.GetAllAsync();
-
-            return Ok(files);
+            var file = await _fileRepository.GetAsync(new Guid("4E4C15CD-0255-4E50-1155-08D8AA5CDCEB"));
+            //var files = await _fileRepository.GetAllAsync();
+            //var folders = await _folderRepository.GetAllAsync();
+            //var folder = await _folderRepository.GetAsync(14);
+            
+            return Ok(file);
         }
     }
 }
