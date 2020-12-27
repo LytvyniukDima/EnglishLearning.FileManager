@@ -9,6 +9,6 @@
     </ItemGroup>
     
     <ItemGroup>
-      <ProjectReference Include="..\EnglishLearning.FileManager.Persistence\EnglishLearning.FileManager.Persistence.csproj" />
+      <ProjectReference Include="..\EnglishLearning.FileManager.Application\EnglishLearning.FileManager.Application.csproj" />
     </ItemGroup>
 </Project>

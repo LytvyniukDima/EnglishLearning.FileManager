@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishLearning.FileManager
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{811FF232-A785-482D-B456-8A0E13BB6140}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishLearning.FileManager.Application", "src\EnglishLearning.FileManager.Application\EnglishLearning.FileManager.Application.csproj", "{C477B403-0522-42E7-9D79-6B0A5B53C35C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{6E9BF6D9-D0C2-43C9-8E67-5D93B7D9912B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9BF6D9-D0C2-43C9-8E67-5D93B7D9912B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9BF6D9-D0C2-43C9-8E67-5D93B7D9912B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C477B403-0522-42E7-9D79-6B0A5B53C35C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C477B403-0522-42E7-9D79-6B0A5B53C35C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C477B403-0522-42E7-9D79-6B0A5B53C35C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C477B403-0522-42E7-9D79-6B0A5B53C35C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1EE43B66-1E80-4C59-83ED-12F729E5EE35} = {811FF232-A785-482D-B456-8A0E13BB6140}

@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using EnglishLearning.FileManager.Application.Configuration;
 using EnglishLearning.FileManager.Host.Infrastructure;
 using EnglishLearning.FileManager.Persistence.Configuration;
 using EnglishLearning.Utilities.General.Extensions;
@@ -48,7 +49,8 @@ namespace EnglishLearning.FileManager.Host
                 .AddEnglishLearningIdentity();
 
             services
-                .AddPersistenceSettings(Configuration);
+                .AddPersistenceSettings(Configuration)
+                .AddApplicationSettings();
         }
         
         public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, IWebHostEnvironment env)
