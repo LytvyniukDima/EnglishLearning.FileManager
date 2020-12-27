@@ -7,7 +7,7 @@ namespace EnglishLearning.FileManager.SqlMigrations.Migrations
     {
         public override void Up()
         {
-            Execute.EmbeddedScript("Migration_001_AddFoldersTable.sql");
+            Execute.EmbeddedScript($"{nameof(Migration_001_AddFoldersTable)}.sql");
         }
         
         public override void Down()

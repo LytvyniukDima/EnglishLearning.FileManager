@@ -2,17 +2,16 @@ using FluentMigrator;
 
 namespace EnglishLearning.FileManager.SqlMigrations.Migrations
 {
-    [Migration(2)]
-    public class Migration_002_AddFilesTable : Migration
+    [Migration(3)]
+    public class Migration_003_AddDefaultData : Migration
     {
         public override void Up()
         {
-            Execute.EmbeddedScript($"{nameof(Migration_002_AddFilesTable)}.sql");
+            Execute.EmbeddedScript($"{nameof(Migration_003_AddDefaultData)}.sql");
         }
 
         public override void Down()
         {
-            Delete.Table("Files");
         }
     }
 }
