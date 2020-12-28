@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EnglishLearning.FileManager.Application.Models
+namespace EnglishLearning.FileManager.Application.Models.Tree
 {
     public class FileTree
     {

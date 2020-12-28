@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
@@ -32,6 +33,13 @@ namespace EnglishLearning.FileManager.Application.Services
             await _fileRepository.AddAsync(fileEntity);
         }
 
+        public async Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId)
+        {
+            var files = await _fileRepository.FindAllAsync(x => x.FolderId == folderId);
+
+            return files.MapFileEntitiesToModels();
+        }
+        
         private async Task SaveFile(Stream fileStream, Guid id)
         {
             var fileName = id.ToString().ToUpper();

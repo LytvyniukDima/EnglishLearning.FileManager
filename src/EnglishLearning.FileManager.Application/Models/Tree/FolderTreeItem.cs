@@ -1,4 +1,4 @@
-namespace EnglishLearning.FileManager.Application.Models
+namespace EnglishLearning.FileManager.Application.Models.Tree
 {
     public class FolderTreeItem : TreeItem
     {
