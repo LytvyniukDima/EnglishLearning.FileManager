@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
 using EnglishLearning.Utilities.Identity.Abstractions;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EnglishLearning.FileManager.Web.Controllers
 {
     [Route("/api/file-manager/tree")]
+    [ApiController]
     public class TreeController : Controller
     {
         private readonly ITreeService _treeService;
@@ -21,7 +21,7 @@ namespace EnglishLearning.FileManager.Web.Controllers
         public async Task<IActionResult> Get()
         {
             var tree = await _treeService.GetTreeAsync();
-            
+
             return Ok(tree);
         }
     }

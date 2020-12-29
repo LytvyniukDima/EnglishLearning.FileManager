@@ -3,9 +3,11 @@ using System.Text.Json.Serialization;
 using EnglishLearning.FileManager.Application.Configuration;
 using EnglishLearning.FileManager.Host.Infrastructure;
 using EnglishLearning.FileManager.Persistence.Configuration;
+using EnglishLearning.FileManager.Web.Validators;
 using EnglishLearning.Utilities.General.Extensions;
 using EnglishLearning.Utilities.Identity.Configuration;
 using EnglishLearning.Utilities.Persistence.Redis.Configuration;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +42,8 @@ namespace EnglishLearning.FileManager.Host
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FileCreateViewModelValidator>());
 
             services.AddSwaggerDocumentation();
 

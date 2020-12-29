@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EnglishLearning.FileManager.Web.Controllers
 {
     [Route("/api/file-manager/file")]
+    [ApiController]
     public class FileController : Controller
     {
         private readonly IFileService _fileService;
@@ -35,13 +36,13 @@ namespace EnglishLearning.FileManager.Web.Controllers
             
             await _fileService.CreateFileAsync(memoryStream, fileCreateModel);
             
-            return Ok();
+            return Ok(file.UploadedFile.ContentType);
         }
 
         private FileCreateModel MapFileCreateViewModelToModel(FileCreateViewModel viewModel)
         {
             var metadata = JsonSerializer.Deserialize<Dictionary<string, string>>(viewModel.Metadata, new JsonSerializerOptions() { IgnoreNullValues = true });
-            
+
             return new FileCreateModel
             {
                 Id = Guid.NewGuid(),
