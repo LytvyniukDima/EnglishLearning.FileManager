@@ -24,11 +24,16 @@ namespace EnglishLearning.FileManager.Web.Validators
             .ToArray();
         
         private readonly IFileService _fileService;
+
+        private readonly IFolderService _folderService;
         
-        public FileCreateViewModelValidator(IFileService fileService)
+        public FileCreateViewModelValidator(
+            IFileService fileService,
+            IFolderService folderService)
         {
             _fileService = fileService;
-
+            _folderService = folderService;
+            
             RuleFor(x => x.UploadedFile).NotNull();
 
             RuleFor(x => x.UploadedFile.ContentType)
@@ -47,6 +52,20 @@ namespace EnglishLearning.FileManager.Web.Validators
                             return filesInFolder.All(file => file.Name != x.Name);
                         })
                         .WithMessage("Name not unique");
+                });
+            
+            When(
+                x => ArchiveContentTypes.Contains(x.UploadedFile.ContentType), 
+                () =>
+                {
+                    RuleFor(x => x)
+                        .MustAsync(async (x, cancellation) =>
+                        {
+                            var foldersInFolder = await _folderService.GetChildFoldersAsync(x.FolderId);
+
+                            return foldersInFolder.All(file => file.Name != x.Name);
+                        })
+                        .WithMessage("Folder name not unique");
                 });
         }
     }

@@ -32,11 +32,28 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
                 Metadata = fileEntity.Metadata,
             };
         }
+
+        public static FolderModel MapFolderEntityToModel(FolderEntity folderEntity)
+        {
+            return new FolderModel
+            {
+                Id = folderEntity.Id,
+                Name = folderEntity.Name,
+                ParentId = folderEntity.ParentId,
+            };
+        }
         
         public static IReadOnlyList<FileModel> MapFileEntitiesToModels(this IEnumerable<FileEntity> files)
         {
             return files
                 .Select(MapFileEntityToModel)
+                .ToList();
+        }
+        
+        public static IReadOnlyList<FolderModel> MapFileEntitiesToModels(this IEnumerable<FolderEntity> folders)
+        {
+            return folders
+                .Select(MapFolderEntityToModel)
                 .ToList();
         }
     }

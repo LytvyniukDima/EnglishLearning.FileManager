@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Persistence.Abstract;
 using EnglishLearning.FileManager.Persistence.Entities;
@@ -32,6 +35,14 @@ namespace EnglishLearning.FileManager.Persistence.Repositories
         {
             return await _dbContext.Folders
                 .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<FolderEntity>> FindAllAsync(Expression<Func<FolderEntity, bool>> predicate)
+        {
+            return await _dbContext.Folders
+                .AsNoTracking()
+                .Where(predicate)
                 .ToListAsync();
         }
     }
