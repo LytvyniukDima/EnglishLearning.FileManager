@@ -9,6 +9,8 @@ namespace EnglishLearning.FileManager.Persistence.Entities
         
         public string Name { get; set; }
         
+        public string Extension { get; set; }
+        
         public DateTime LastModified { get; set; }
         
         public Guid CreatedBy { get; set; }

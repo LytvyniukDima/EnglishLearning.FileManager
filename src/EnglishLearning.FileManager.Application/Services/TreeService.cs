@@ -61,6 +61,7 @@ namespace EnglishLearning.FileManager.Application.Services
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Extension = x.Extension,
                     LastModified = x.LastModified,
                     CreatedBy = x.CreatedBy,
                     Metadata = x.Metadata,

@@ -16,7 +16,6 @@ namespace EnglishLearning.FileManager.Web.Validators
         private static readonly string[] TextFileContentTypes = new[]
         {
             ContentTypes.Txt,
-            ContentTypes.Csv,
         };
 
         private static readonly string[] AcceptedContentTypes = ArchiveContentTypes

@@ -18,10 +18,12 @@ namespace EnglishLearning.FileManager.Persistence.Repositories
             _dbContext = dbContext;
         }
         
-        public async Task AddAsync(FileEntity file)
+        public async Task<FileEntity> AddAsync(FileEntity file)
         {
             await _dbContext.AddAsync(file);
             await _dbContext.SaveChangesAsync();
+
+            return file;
         }
 
         public Task<FileEntity> GetAsync(Guid id)

@@ -11,12 +11,12 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
         {
             return new FileEntity
             {
-                Id = fileCreateModel.Id,
                 CreatedBy = fileCreateModel.CreatedBy,
                 FolderId = fileCreateModel.FolderId,
                 LastModified = fileCreateModel.LastModified,
                 Metadata = fileCreateModel.Metadata,
                 Name = fileCreateModel.Name,
+                Extension = fileCreateModel.Extension,
             };
         }
 
@@ -26,6 +26,7 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
             {
                 Id = fileEntity.Id,
                 Name = fileEntity.Name,
+                Extension = fileEntity.Extension,
                 CreatedBy = fileEntity.CreatedBy,
                 FolderId = fileEntity.FolderId,
                 LastModified = fileEntity.LastModified,

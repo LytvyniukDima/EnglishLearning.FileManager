@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
-using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Web.ViewModels;
 using EnglishLearning.Utilities.Identity.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using static EnglishLearning.FileManager.Web.Infrastructure.WebMapper;
 
 namespace EnglishLearning.FileManager.Web.Controllers
 {
@@ -30,28 +27,13 @@ namespace EnglishLearning.FileManager.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateFile([FromForm] FileCreateViewModel file)
         {
-            var fileCreateModel = MapFileCreateViewModelToModel(file);
+            var fileCreateModel = MapViewModelToApplicationModel(file, _jwtInfoProvider.UserId);
             await using var memoryStream = new MemoryStream();
             await file.UploadedFile.CopyToAsync(memoryStream);
             
             await _fileService.CreateFileAsync(memoryStream, fileCreateModel);
             
             return Ok(file.UploadedFile.ContentType);
-        }
-
-        private FileCreateModel MapFileCreateViewModelToModel(FileCreateViewModel viewModel)
-        {
-            var metadata = JsonSerializer.Deserialize<Dictionary<string, string>>(viewModel.Metadata, new JsonSerializerOptions() { IgnoreNullValues = true });
-
-            return new FileCreateModel
-            {
-                Id = Guid.NewGuid(),
-                Name = viewModel.Name,
-                CreatedBy = _jwtInfoProvider.UserId,
-                FolderId = viewModel.FolderId,
-                LastModified = DateTime.UtcNow,
-                Metadata = metadata,
-            };
         }
     }
 }

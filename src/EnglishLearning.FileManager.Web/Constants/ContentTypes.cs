@@ -5,7 +5,5 @@ namespace EnglishLearning.FileManager.Web.Constants
         public const string Zip = "application/zip";
 
         public const string Txt = "text/plain";
-
-        public const string Csv = "text/csv";
     }
 }

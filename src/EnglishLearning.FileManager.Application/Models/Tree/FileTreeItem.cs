@@ -7,6 +7,8 @@ namespace EnglishLearning.FileManager.Application.Models.Tree
     {
         public Guid Id { get; set; }
 
+        public string Extension { get; set; }
+            
         public DateTime LastModified { get; set; }
         
         public Guid CreatedBy { get; set; }

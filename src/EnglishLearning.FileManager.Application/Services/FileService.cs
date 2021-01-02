@@ -29,8 +29,8 @@ namespace EnglishLearning.FileManager.Application.Services
         {
             var fileEntity = MapFileCreateModelToEntity(fileCreateModel);
             
-            await SaveFile(fileStream, fileCreateModel.Id);
-            await _fileRepository.AddAsync(fileEntity);
+            var createdFile = await _fileRepository.AddAsync(fileEntity);
+            await SaveFile(fileStream, createdFile.Id);
         }
 
         public async Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId)

@@ -3,6 +3,7 @@ CREATE TABLE Files
  Id uniqueidentifier NOT NULL  
    DEFAULT newid(),
  Name nvarchar(80) NOT NULL,
+ Extension nvarchar(40) NOT NULL,
  LastModified datetime NOT NULL,
  FolderId INT NOT NULL,
  CreatedBy uniqueidentifier NOT NULL,
