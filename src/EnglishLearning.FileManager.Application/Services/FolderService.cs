@@ -22,5 +22,13 @@ namespace EnglishLearning.FileManager.Application.Services
 
             return folders.MapFileEntitiesToModels();
         }
+
+        public async Task<FolderModel> CreateAsync(FolderCreateModel folderModel)
+        {
+            var folderEntity = MapFolderCreateModelToEntity(folderModel);
+            var createdEntity = await _folderRepository.AddAsync(folderEntity);
+
+            return MapFolderEntityToModel(createdEntity);
+        }
     }
 }

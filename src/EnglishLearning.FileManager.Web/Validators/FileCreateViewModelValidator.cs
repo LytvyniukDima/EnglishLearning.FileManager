@@ -1,23 +1,13 @@
 using System.Linq;
 using EnglishLearning.FileManager.Application.Abstract;
-using EnglishLearning.FileManager.Web.Constants;
 using EnglishLearning.FileManager.Web.ViewModels;
 using FluentValidation;
+using static EnglishLearning.FileManager.Web.Constants.ContentTypes;
 
 namespace EnglishLearning.FileManager.Web.Validators
 {
     public class FileCreateViewModelValidator : AbstractValidator<FileCreateViewModel>
     {
-        private static readonly string[] ArchiveContentTypes = new[]
-        {
-            ContentTypes.Zip,
-        };
-
-        private static readonly string[] TextFileContentTypes = new[]
-        {
-            ContentTypes.Txt,
-        };
-
         private static readonly string[] AcceptedContentTypes = ArchiveContentTypes
             .Concat(TextFileContentTypes)
             .ToArray();

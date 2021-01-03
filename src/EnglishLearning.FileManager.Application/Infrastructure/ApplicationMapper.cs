@@ -43,6 +43,15 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
                 ParentId = folderEntity.ParentId,
             };
         }
+
+        public static FolderEntity MapFolderCreateModelToEntity(FolderCreateModel folderCreateModel)
+        {
+            return new FolderEntity
+            {
+                Name = folderCreateModel.Name,
+                ParentId = folderCreateModel.ParentId,
+            };
+        }
         
         public static IReadOnlyList<FileModel> MapFileEntitiesToModels(this IEnumerable<FileEntity> files)
         {

@@ -7,5 +7,7 @@ namespace EnglishLearning.FileManager.Application.Abstract
     public interface IFolderService
     {
         Task<IReadOnlyList<FolderModel>> GetChildFoldersAsync(int folderId);
+
+        Task<FolderModel> CreateAsync(FolderCreateModel folderModel);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using EnglishLearning.FileManager.Application.Constants;
 using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Web.Constants;
 using EnglishLearning.FileManager.Web.ViewModels;
@@ -11,7 +12,8 @@ namespace EnglishLearning.FileManager.Web.Infrastructure
     {
         public static readonly IReadOnlyDictionary<string, string> ContentTypeFileExtensionMap = new Dictionary<string, string>()
         {
-            { ContentTypes.Txt, "txt" },
+            { ContentTypes.Txt, FileConstants.Txt },
+            { ContentTypes.Zip, FileConstants.Zip },
         };
 
         public static FileCreateModel MapViewModelToApplicationModel(

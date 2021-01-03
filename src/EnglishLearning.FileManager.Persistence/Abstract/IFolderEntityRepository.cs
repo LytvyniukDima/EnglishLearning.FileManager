@@ -8,7 +8,7 @@ namespace EnglishLearning.FileManager.Persistence.Abstract
 {
     public interface IFolderEntityRepository
     {
-        Task AddAsync(FolderEntity folderEntity);
+        Task<FolderEntity> AddAsync(FolderEntity folderEntity);
 
         Task<FolderEntity> GetAsync(int id);
 
