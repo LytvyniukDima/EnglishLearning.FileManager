@@ -9,7 +9,6 @@ using EnglishLearning.FileManager.Application.Configuration;
 using EnglishLearning.FileManager.Application.Infrastructure;
 using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Persistence.Abstract;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using static EnglishLearning.FileManager.Application.Constants.FileConstants;
 using static EnglishLearning.FileManager.Application.Infrastructure.ApplicationMapper;
@@ -40,7 +39,14 @@ namespace EnglishLearning.FileManager.Application.Services
 
             return files.MapFileEntitiesToModels();
         }
-        
+
+        public async Task<FileModel> GetAsync(Guid id)
+        {
+            var file = await _fileRepository.GetAsync(id);
+
+            return MapFileEntityToModel(file);
+        }
+
         public async Task CreateFileAsync(Stream fileStream, FileCreateModel fileCreateModel)
         {
             if (TextFileExtensions.Contains(fileCreateModel.Extension))

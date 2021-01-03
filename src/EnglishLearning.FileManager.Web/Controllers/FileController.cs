@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
@@ -33,7 +34,17 @@ namespace EnglishLearning.FileManager.Web.Controllers
             
             await _fileService.CreateFileAsync(memoryStream, fileCreateModel);
             
-            return Ok(file.UploadedFile.ContentType);
+            return Ok();
+        }
+        
+        [EnglishLearningAuthorize(AuthorizeRole.Admin)]
+        [HttpGet("{id}/info")]
+        public async Task<ActionResult> GetFileInfo(Guid id)
+        {
+            var fileInfo = await _fileService.GetAsync(id);
+            var fileViewModel = MapFileModelToFileInfoViewModel(fileInfo);
+            
+            return Ok(fileViewModel);
         }
     }
 }

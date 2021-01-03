@@ -32,5 +32,19 @@ namespace EnglishLearning.FileManager.Web.Infrastructure
                 Name = file.Name,
             };
         }
+
+        public static FileInfoViewModel MapFileModelToFileInfoViewModel(FileModel fileModel)
+        {
+            return new FileInfoViewModel
+            {
+                CreatedBy = fileModel.CreatedBy,
+                Extension = fileModel.Extension,
+                FolderId = fileModel.FolderId,
+                Id = fileModel.Id,
+                LastModified = fileModel.LastModified,
+                Metadata = fileModel.Metadata,
+                Name = fileModel.Name,
+            };
+        }
     }
 }

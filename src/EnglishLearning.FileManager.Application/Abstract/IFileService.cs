@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,5 +11,7 @@ namespace EnglishLearning.FileManager.Application.Abstract
         Task CreateFileAsync(Stream fileStream, FileCreateModel fileCreateModel);
 
         Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId);
+
+        Task<FileModel> GetAsync(Guid id);
     }
 }
