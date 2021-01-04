@@ -57,7 +57,8 @@ namespace EnglishLearning.FileManager.Application.Services
             var allChildFolders = await _folderService.GetAllChildFoldersAsync(folderId);
             var folderIds = allChildFolders
                 .Select(x => x.Id)
-                .ToArray();
+                .ToList();
+            folderIds.Add(folderId);
 
             var files = await _fileRepository
                 .FindAllAsync(x => folderIds.Contains(x.FolderId));
@@ -114,9 +115,10 @@ namespace EnglishLearning.FileManager.Application.Services
                 foreach (ZipArchiveEntry entry in textEntries)
                 {
                     var fullPath = Path.GetDirectoryName(entry.FullName);
-                    var splittedPath = fullPath.Split('\\');
+                    
+                    var splittedPath = fullPath.Split(Path.DirectorySeparatorChar);
                     splittedPath[0] = fileCreateModel.Name;
-                    var newPath = string.Join('\\', splittedPath);
+                    var newPath = string.Join(Path.DirectorySeparatorChar, splittedPath);
 
                     if (!folderDictionary.TryGetValue(newPath, out var folderModel))
                     {
@@ -160,7 +162,7 @@ namespace EnglishLearning.FileManager.Application.Services
             string path,
             Dictionary<string, FolderModel> folderDictionary)
         {
-            var splittedPath = path.Split('\\');
+            var splittedPath = path.Split(Path.DirectorySeparatorChar);
             var folderPath = splittedPath[0];
             
             for (var i = 1; i < splittedPath.Length; i++)
