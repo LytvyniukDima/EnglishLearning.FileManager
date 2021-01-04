@@ -10,9 +10,11 @@ namespace EnglishLearning.FileManager.Application.Abstract
     {
         Task CreateFileAsync(Stream fileStream, FileCreateModel fileCreateModel);
 
+        Task<Stream> GetFileContentAsync(Guid id);
+        
+        Task<FileModel> GetInfoAsync(Guid id);
+        
         Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId);
-
-        Task<FileModel> GetAsync(Guid id);
 
         Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int folderId);
     }

@@ -2,7 +2,7 @@ using System.Linq;
 using EnglishLearning.FileManager.Application.Abstract;
 using EnglishLearning.FileManager.Web.ViewModels;
 using FluentValidation;
-using static EnglishLearning.FileManager.Web.Constants.ContentTypes;
+using static EnglishLearning.FileManager.Web.Constants.ContentTypeConstants;
 
 namespace EnglishLearning.FileManager.Web.Validators
 {

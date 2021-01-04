@@ -45,7 +45,23 @@ namespace EnglishLearning.FileManager.Application.Services
             return files.MapFileEntitiesToModels();
         }
 
-        public async Task<FileModel> GetAsync(Guid id)
+        public async Task<Stream> GetFileContentAsync(Guid id)
+        {
+            var fileName = id.ToString().ToUpper();
+            var filePath = Path.Combine(_fileShareConfiguration.Path, fileName);
+            var memoryStream = new MemoryStream();
+            
+            using (var stream = File.OpenRead(filePath))
+            {
+                await stream.CopyToAsync(memoryStream);
+            }
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            
+            return memoryStream;
+        }
+
+        public async Task<FileModel> GetInfoAsync(Guid id)
         {
             var file = await _fileRepository.GetAsync(id);
 

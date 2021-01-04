@@ -5,6 +5,7 @@ using EnglishLearning.FileManager.Application.Abstract;
 using EnglishLearning.FileManager.Web.ViewModels;
 using EnglishLearning.Utilities.Identity.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using static EnglishLearning.FileManager.Web.Constants.ContentTypeConstants;
 using static EnglishLearning.FileManager.Web.Infrastructure.WebMapper;
 
 namespace EnglishLearning.FileManager.Web.Controllers
@@ -38,10 +39,25 @@ namespace EnglishLearning.FileManager.Web.Controllers
         }
         
         [EnglishLearningAuthorize(AuthorizeRole.Admin)]
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetFile(Guid id)
+        {
+            var fileInfo = await _fileService.GetInfoAsync(id);
+            var contentType = FileExtensionContentTypeMap[fileInfo.Extension];
+            var fileName = $"{fileInfo.Name}.{fileInfo.Extension}";
+            var fileStream = await _fileService.GetFileContentAsync(id);
+            
+            return new FileStreamResult(fileStream, contentType)
+            {
+                FileDownloadName = fileName,
+            };
+        }
+        
+        [EnglishLearningAuthorize(AuthorizeRole.Admin)]
         [HttpGet("{id}/info")]
         public async Task<ActionResult> GetFileInfo(Guid id)
         {
-            var fileInfo = await _fileService.GetAsync(id);
+            var fileInfo = await _fileService.GetInfoAsync(id);
             var fileViewModel = MapFileModelToFileInfoViewModel(fileInfo);
             
             return Ok(fileViewModel);
