@@ -9,5 +9,7 @@ namespace EnglishLearning.FileManager.Application.Abstract
         Task<IReadOnlyList<FolderModel>> GetChildFoldersAsync(int folderId);
 
         Task<FolderModel> CreateAsync(FolderCreateModel folderModel);
+
+        Task<IReadOnlyList<FolderModel>> GetAllChildFoldersAsync(int folderId);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using EnglishLearning.FileManager.Application.Constants;
 using EnglishLearning.FileManager.Application.Models;
@@ -45,6 +46,13 @@ namespace EnglishLearning.FileManager.Web.Infrastructure
                 Metadata = fileModel.Metadata,
                 Name = fileModel.Name,
             };
+        }
+
+        public static IReadOnlyList<FileInfoViewModel> MapFileModelsToFileInfoViewModels(this IReadOnlyList<FileModel> fileModels)
+        {
+            return fileModels
+                .Select(MapFileModelToFileInfoViewModel)
+                .ToList();
         }
     }
 }

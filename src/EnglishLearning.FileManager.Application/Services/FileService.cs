@@ -9,6 +9,7 @@ using EnglishLearning.FileManager.Application.Configuration;
 using EnglishLearning.FileManager.Application.Infrastructure;
 using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Persistence.Abstract;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using static EnglishLearning.FileManager.Application.Constants.FileConstants;
 using static EnglishLearning.FileManager.Application.Infrastructure.ApplicationMapper;
@@ -23,14 +24,18 @@ namespace EnglishLearning.FileManager.Application.Services
         
         private readonly FileShareConfiguration _fileShareConfiguration;
 
+        private readonly ILogger<FileService> _logger;
+
         public FileService(
             IFileEntityRepository fileRepository,
             IFolderService folderService,
-            IOptions<FileShareConfiguration> fileShareConfiguration)
+            IOptions<FileShareConfiguration> fileShareConfiguration,
+            ILogger<FileService> logger)
         {
             _fileRepository = fileRepository;
             _folderService = folderService;
             _fileShareConfiguration = fileShareConfiguration.Value;
+            _logger = logger;
         }
         
         public async Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId)
@@ -45,6 +50,19 @@ namespace EnglishLearning.FileManager.Application.Services
             var file = await _fileRepository.GetAsync(id);
 
             return MapFileEntityToModel(file);
+        }
+
+        public async Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int folderId)
+        {
+            var allChildFolders = await _folderService.GetAllChildFoldersAsync(folderId);
+            var folderIds = allChildFolders
+                .Select(x => x.Id)
+                .ToArray();
+
+            var files = await _fileRepository
+                .FindAllAsync(x => folderIds.Contains(x.FolderId));
+            
+            return files.MapFileEntitiesToModels();
         }
 
         public async Task CreateFileAsync(Stream fileStream, FileCreateModel fileCreateModel)

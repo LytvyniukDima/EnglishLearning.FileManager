@@ -60,7 +60,7 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
                 .ToList();
         }
         
-        public static IReadOnlyList<FolderModel> MapFileEntitiesToModels(this IEnumerable<FolderEntity> folders)
+        public static IReadOnlyList<FolderModel> MapFolderEntitiesToModels(this IEnumerable<FolderEntity> folders)
         {
             return folders
                 .Select(MapFolderEntityToModel)

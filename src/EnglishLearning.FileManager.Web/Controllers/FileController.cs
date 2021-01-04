@@ -46,5 +46,15 @@ namespace EnglishLearning.FileManager.Web.Controllers
             
             return Ok(fileViewModel);
         }
+        
+        [EnglishLearningAuthorize(AuthorizeRole.Admin)]
+        [HttpGet("~/api/file-manager/folder/{folderId}/file/info")]
+        public async Task<ActionResult> GetFileInfo(int folderId)
+        {
+            var fileInfos = await _fileService.GetAllFromFolderAsync(folderId);
+            var fileInfoViewModels = fileInfos.MapFileModelsToFileInfoViewModels();
+            
+            return Ok(fileInfoViewModels);
+        }
     }
 }
