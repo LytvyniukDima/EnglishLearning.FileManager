@@ -34,7 +34,7 @@ namespace EnglishLearning.FileManager.Host
                     builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .WithExposedHeaders("Authorization"));
+                        .WithExposedHeaders("Authorization", "Content-Disposition"));
             });
 
             services
@@ -43,7 +43,11 @@ namespace EnglishLearning.FileManager.Host
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 })
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<FileCreateViewModelValidator>());
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<FileCreateViewModelValidator>();
+                    fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
 
             services.AddSwaggerDocumentation();
 

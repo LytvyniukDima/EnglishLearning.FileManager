@@ -5,7 +5,7 @@ CREATE TABLE Files
  Name nvarchar(80) NOT NULL,
  Extension nvarchar(40) NOT NULL,
  LastModified datetime NOT NULL,
- FolderId INT NOT NULL,
+ FolderId INT NULL,
  CreatedBy uniqueidentifier NOT NULL,
  Metadata nvarchar(max)
  CONSTRAINT [Metadata should be formatted as JSON]

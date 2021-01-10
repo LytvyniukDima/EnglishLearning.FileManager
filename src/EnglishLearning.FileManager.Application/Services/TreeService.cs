@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,14 +88,21 @@ namespace EnglishLearning.FileManager.Application.Services
         }
 
         private static IReadOnlyList<string> GetFilePath(
-            int folderId,
+            int? folderId,
             IReadOnlyDictionary<int, FolderTreeItem> folderDictionary)
         {
-            var folder = folderDictionary[folderId];
-            return folder
-                .Path
-                .Concat(new[] { folder.Name })
-                .ToList();
+            if (folderId.HasValue)
+            {
+                var folder = folderDictionary[folderId.Value];
+                return folder
+                    .Path
+                    .Concat(new[] { folder.Name })
+                    .ToList();   
+            }
+            else
+            {
+                return Array.Empty<string>();
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ namespace EnglishLearning.FileManager.Application.Services
             _folderRepository = folderRepository;
         }
         
-        public async Task<IReadOnlyList<FolderModel>> GetChildFoldersAsync(int folderId)
+        public async Task<IReadOnlyList<FolderModel>> GetChildFoldersAsync(int? folderId)
         {
             var folders = await _folderRepository.FindAllAsync(x => x.ParentId == folderId);
 
@@ -34,10 +34,10 @@ namespace EnglishLearning.FileManager.Application.Services
             return MapFolderEntityToModel(createdEntity);
         }
 
-        public async Task<IReadOnlyList<FolderModel>> GetAllChildFoldersAsync(int folderId)
+        public async Task<IReadOnlyList<FolderModel>> GetAllChildFoldersAsync(int? folderId)
         {
             static IReadOnlyList<FolderEntity> GetAllChildFolders(
-                int currentFolderId,
+                int? currentFolderId,
                 ILookup<int?, FolderEntity> folderLookup)
             {
                 var allFolders = new List<FolderEntity>();
@@ -59,7 +59,6 @@ namespace EnglishLearning.FileManager.Application.Services
             
             var folders = await _folderRepository.GetAllAsync();
             var folderLookup = folders
-                .Where(x => x.ParentId.HasValue)
                 .ToLookup(x => x.ParentId);
 
             var allFolders = GetAllChildFolders(folderId, folderLookup); 

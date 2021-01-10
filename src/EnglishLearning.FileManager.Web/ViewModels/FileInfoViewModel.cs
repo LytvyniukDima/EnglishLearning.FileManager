@@ -17,6 +17,6 @@ namespace EnglishLearning.FileManager.Web.ViewModels
         
         public Dictionary<string, string> Metadata { get; set; }
         
-        public int FolderId { get; set; }
+        public int? FolderId { get; set; }
     }
 }

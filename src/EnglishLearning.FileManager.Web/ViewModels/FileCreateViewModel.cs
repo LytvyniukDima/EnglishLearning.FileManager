@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace EnglishLearning.FileManager.Web.ViewModels
@@ -7,7 +6,7 @@ namespace EnglishLearning.FileManager.Web.ViewModels
     {
         public string Name { get; set; }
         
-        public int FolderId { get; set; }
+        public int? FolderId { get; set; }
         
         public string Metadata { get; set; }
         

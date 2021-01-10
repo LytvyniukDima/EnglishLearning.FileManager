@@ -38,7 +38,7 @@ namespace EnglishLearning.FileManager.Application.Services
             _logger = logger;
         }
         
-        public async Task<IReadOnlyList<FileModel>> GetAllByFolderId(int folderId)
+        public async Task<IReadOnlyList<FileModel>> GetAllByFolderId(int? folderId)
         {
             var files = await _fileRepository.FindAllAsync(x => x.FolderId == folderId);
 
@@ -68,11 +68,11 @@ namespace EnglishLearning.FileManager.Application.Services
             return MapFileEntityToModel(file);
         }
 
-        public async Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int folderId)
+        public async Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int? folderId)
         {
             var allChildFolders = await _folderService.GetAllChildFoldersAsync(folderId);
             var folderIds = allChildFolders
-                .Select(x => x.Id)
+                .Select(x => x.Id as int?)
                 .ToList();
             folderIds.Add(folderId);
 
