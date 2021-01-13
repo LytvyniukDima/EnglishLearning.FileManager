@@ -34,6 +34,21 @@ namespace EnglishLearning.FileManager.Application.Infrastructure
             };
         }
 
+        public static FileDetailedModel MapFileEntityToDetailedModel(FileEntity fileEntity, IReadOnlyList<string> path)
+        {
+            return new FileDetailedModel
+            {
+                Id = fileEntity.Id,
+                Name = fileEntity.Name,
+                Extension = fileEntity.Extension,
+                CreatedBy = fileEntity.CreatedBy,
+                FolderId = fileEntity.FolderId,
+                LastModified = fileEntity.LastModified,
+                Metadata = fileEntity.Metadata,
+                Path = path,
+            };
+        }
+        
         public static FolderModel MapFolderEntityToModel(FolderEntity folderEntity)
         {
             return new FolderModel

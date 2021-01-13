@@ -12,8 +12,8 @@ namespace EnglishLearning.FileManager.Application.Abstract
 
         Task<Stream> GetFileContentAsync(Guid id);
         
-        Task<FileModel> GetInfoAsync(Guid id);
-        
+        Task<FileDetailedModel> GetFileDetailedModelAsync(Guid id);
+
         Task<IReadOnlyList<FileModel>> GetAllByFolderId(int? folderId);
 
         Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int? folderId);

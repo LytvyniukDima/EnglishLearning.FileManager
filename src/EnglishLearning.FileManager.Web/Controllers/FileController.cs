@@ -42,7 +42,7 @@ namespace EnglishLearning.FileManager.Web.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetFile(Guid id)
         {
-            var fileInfo = await _fileService.GetInfoAsync(id);
+            var fileInfo = await _fileService.GetFileDetailedModelAsync(id);
             var contentType = FileExtensionContentTypeMap[fileInfo.Extension];
             var fileName = $"{fileInfo.Name}.{fileInfo.Extension}";
             var fileStream = await _fileService.GetFileContentAsync(id);
@@ -54,13 +54,12 @@ namespace EnglishLearning.FileManager.Web.Controllers
         }
         
         [EnglishLearningAuthorize(AuthorizeRole.Admin)]
-        [HttpGet("{id}/info")]
+        [HttpGet("{id}/details")]
         public async Task<ActionResult> GetFileInfo(Guid id)
         {
-            var fileInfo = await _fileService.GetInfoAsync(id);
-            var fileViewModel = MapFileModelToFileInfoViewModel(fileInfo);
-            
-            return Ok(fileViewModel);
+            var fileDetails = await _fileService.GetFileDetailedModelAsync(id);
+
+            return Ok(fileDetails);
         }
         
         [EnglishLearningAuthorize(AuthorizeRole.Admin)]
@@ -68,9 +67,8 @@ namespace EnglishLearning.FileManager.Web.Controllers
         public async Task<ActionResult> GetFilesInFolderInfo([FromQuery] int? folderId)
         {
             var fileInfos = await _fileService.GetAllFromFolderAsync(folderId);
-            var fileInfoViewModels = fileInfos.MapFileModelsToFileInfoViewModels();
-            
-            return Ok(fileInfoViewModels);
+
+            return Ok(fileInfos);
         }
     }
 }

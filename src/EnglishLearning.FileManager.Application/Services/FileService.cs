@@ -61,11 +61,22 @@ namespace EnglishLearning.FileManager.Application.Services
             return memoryStream;
         }
 
-        public async Task<FileModel> GetInfoAsync(Guid id)
+        public async Task<FileDetailedModel> GetFileDetailedModelAsync(Guid id)
         {
             var file = await _fileRepository.GetAsync(id);
+            IReadOnlyList<string> path;
 
-            return MapFileEntityToModel(file);
+            if (!file.FolderId.HasValue)
+            {
+                path = Array.Empty<string>();
+            }
+            else
+            {
+                var folderInfo = await _folderService.GetFolderInfoAsync(file.FolderId.Value);
+                path = folderInfo.Path.Concat(new [] { folderInfo.Name }).ToList();
+            }
+
+            return MapFileEntityToDetailedModel(file, path);
         }
 
         public async Task<IReadOnlyList<FileModel>> GetAllFromFolderAsync(int? folderId)
