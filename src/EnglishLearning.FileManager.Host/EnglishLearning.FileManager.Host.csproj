@@ -9,7 +9,7 @@
             <Version>1.3.0-359873741</Version>
         </PackageReference>
         <PackageReference Include="EnglishLearning.Utilities.Identity">
-            <Version>1.3.0-359873728</Version>
+            <Version>1.3.0-483289075</Version>
         </PackageReference>
         <PackageReference Include="EnglishLearning.Utilities.Persistence.Redis">
             <Version>1.3.0-359873747</Version>

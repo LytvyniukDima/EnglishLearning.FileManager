@@ -7,7 +7,7 @@
     <ItemGroup>
         <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="EnglishLearning.Utilities.Identity.Abstractions" Version="1.3.0-359873728" />
+        <PackageReference Include="EnglishLearning.Utilities.Identity.Abstractions" Version="1.3.0-483289075" />
     </ItemGroup>
     
     <ItemGroup>
