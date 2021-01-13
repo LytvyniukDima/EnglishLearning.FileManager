@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
 using EnglishLearning.FileManager.Application.Models;
+using EnglishLearning.FileManager.Application.Models.Tree;
 using EnglishLearning.FileManager.Persistence.Abstract;
 using EnglishLearning.FileManager.Persistence.Entities;
 using static EnglishLearning.FileManager.Application.Infrastructure.ApplicationMapper;
@@ -32,6 +33,20 @@ namespace EnglishLearning.FileManager.Application.Services
             var createdEntity = await _folderRepository.AddAsync(folderEntity);
 
             return MapFolderEntityToModel(createdEntity);
+        }
+        
+        public async Task<FolderInfoModel> GetFolderInfoAsync(int folderId)
+        {
+            var folders = await _folderRepository.GetAllAsync();
+            var foldersDictionary = folders.ToDictionary(x => x.Id);
+            var folder = foldersDictionary[folderId];
+            
+            return new FolderInfoModel
+            {
+                Id = folder.Id,
+                Name = folder.Name,
+                Path = GetFolderPath(folder.ParentId, foldersDictionary),
+            };
         }
 
         public async Task<IReadOnlyList<FolderModel>> GetAllChildFoldersAsync(int? folderId)
@@ -64,6 +79,37 @@ namespace EnglishLearning.FileManager.Application.Services
             var allFolders = GetAllChildFolders(folderId, folderLookup); 
             
             return allFolders.MapFolderEntitiesToModels();
+        }
+        
+        public async Task<IReadOnlyList<FolderTreeItem>> GetFolderTreeItemsAsync()
+        {
+            var folders = await _folderRepository.GetAllAsync();
+            
+            var folderDictionary = folders.ToDictionary(x => x.Id);
+            return folders
+                .Select(x => new FolderTreeItem
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Path = GetFolderPath(x.ParentId, folderDictionary),
+                })
+                .ToList();
+        }
+        
+        private static IReadOnlyList<string> GetFolderPath(
+            int? parentId,
+            IReadOnlyDictionary<int, FolderEntity> folderDictionary)
+        {
+            var path = new List<string>();
+            while (parentId.HasValue)
+            {
+                var parent = folderDictionary[parentId.Value];
+                path.Add(parent.Name);
+                parentId = parent.ParentId;
+            }
+
+            path.Reverse();
+            return path;
         }
     }
 }

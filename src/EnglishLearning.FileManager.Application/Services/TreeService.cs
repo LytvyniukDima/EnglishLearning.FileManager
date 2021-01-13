@@ -11,24 +11,23 @@ namespace EnglishLearning.FileManager.Application.Services
 {
     internal class TreeService : ITreeService
     {
-        private readonly IFolderEntityRepository _folderRepository;
+        private readonly IFolderService _folderService;
 
         private readonly IFileEntityRepository _fileRepository;
 
         public TreeService(
-            IFolderEntityRepository folderRepository,
+            IFolderService folderService,
             IFileEntityRepository fileRepository)
         {
-            _folderRepository = folderRepository;
+            _folderService = folderService;
             _fileRepository = fileRepository;
         }
         
         public async Task<FileTree> GetTreeAsync()
         {
-            var folders = await _folderRepository.GetAllAsync();
             var files = await _fileRepository.GetAllAsync();
 
-            var folderItems = GetFolderItems(folders);
+            var folderItems = await _folderService.GetFolderTreeItemsAsync();
             var fileItems = GetFileItems(files, folderItems);
 
             return new FileTree
@@ -36,19 +35,6 @@ namespace EnglishLearning.FileManager.Application.Services
                 Folders = folderItems,
                 Files = fileItems,
             };
-        }
-
-        private static IReadOnlyList<FolderTreeItem> GetFolderItems(IReadOnlyList<FolderEntity> folders)
-        {
-            var folderDictionary = folders.ToDictionary(x => x.Id);
-            return folders
-                .Select(x => new FolderTreeItem
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Path = GetFolderPath(x.ParentId, folderDictionary),
-                })
-                .ToList();
         }
 
         private static IReadOnlyList<FileTreeItem> GetFileItems(
@@ -69,22 +55,6 @@ namespace EnglishLearning.FileManager.Application.Services
                     Path = GetFilePath(x.FolderId, folderDictionary),
                 })
                 .ToList();
-        }
-        
-        private static IReadOnlyList<string> GetFolderPath(
-            int? parentId,
-            IReadOnlyDictionary<int, FolderEntity> folderDictionary)
-        {
-            var path = new List<string>();
-            while (parentId.HasValue)
-            {
-                var parent = folderDictionary[parentId.Value];
-                path.Add(parent.Name);
-                parentId = parent.ParentId;
-            }
-
-            path.Reverse();
-            return path;
         }
 
         private static IReadOnlyList<string> GetFilePath(
