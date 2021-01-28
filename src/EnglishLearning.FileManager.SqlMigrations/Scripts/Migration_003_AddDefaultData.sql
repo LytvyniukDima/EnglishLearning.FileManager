@@ -21,6 +21,7 @@ VALUES
 ('285C1106-8FE0-41C4-1158-08D8AA5CDCEB', 'fifth_file', 'txt', '2020-12-27 13:45:06.710', 4, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
 ('8101B9DF-6206-412E-1159-08D8AA5CDCEB', 'sixth_file', 'txt', '2020-12-27 13:45:06.710', 4, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
 ('B6ED7408-986E-4337-115A-08D8AA5CDCEB', 'seventh_file', 'txt', '2020-12-27 13:45:06.710', 7, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
-('F788A4A3-3764-452E-115B-08D8AA5CDCEB', 'eighth_file', 'txt', '2020-12-27 13:45:06.710', 6, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}')
+('F788A4A3-3764-452E-115B-08D8AA5CDCEB', 'eighth_file', 'txt', '2020-12-27 13:45:06.710', 6, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
+('F34A6ED3-C97C-4F61-AF29-08D8C3CF1A0B', 'sms spam', 'txt','2021-01-28 20:55:53.520', 1, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}')
 ;
 GO
