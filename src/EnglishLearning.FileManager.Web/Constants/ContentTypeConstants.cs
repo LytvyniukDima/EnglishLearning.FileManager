@@ -7,11 +7,14 @@ namespace EnglishLearning.FileManager.Web.Constants
     {
         public const string Zip = "application/zip";
 
+        public const string ZipCompressed = "application/x-zip-compressed";
+        
         public const string Txt = "text/plain";
         
         public static readonly string[] ArchiveContentTypes = new[]
         {
             Zip,
+            ZipCompressed,
         };
 
         public static readonly string[] TextFileContentTypes = new[]
@@ -23,6 +26,7 @@ namespace EnglishLearning.FileManager.Web.Constants
         {
             { Txt, FileConstants.Txt },
             { Zip, FileConstants.Zip },
+            { ZipCompressed, FileConstants.Zip },
         };
         
         public static readonly IReadOnlyDictionary<string, string> FileExtensionContentTypeMap = new Dictionary<string, string>()
