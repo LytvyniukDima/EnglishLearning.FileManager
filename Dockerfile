@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 ARG NUGET_PASS
 
 COPY . /app
@@ -9,7 +9,7 @@ RUN dotnet publish -c Release -o /app/output
 WORKDIR /app/src/EnglishLearning.FileManager.SqlMigrations
 RUN dotnet publish -c Release -o /app/migrations
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS runtime
 COPY --from=build /app/output /app/host
 COPY --from=build /app/migrations /app/migrations
 
