@@ -14,7 +14,7 @@ GO
 
 INSERT INTO dbo.Files(Id, Name, Extension, LastModified, FolderId, CreatedBy, Metadata)
 VALUES
-('FC072711-A708-4EDF-1154-08D8AA5CDCEB', 'first_file', 'txt', '2020-12-27 13:45:06.710', 1, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
+('FC072711-A708-4EDF-1154-08D8AA5CDCEB', 'simple test file', 'txt', '2020-12-27 13:45:06.710', 1, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
 ('4E4C15CD-0255-4E50-1155-08D8AA5CDCEB', 'second_file', 'txt', '2020-12-27 13:45:06.710', 1, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
 ('AF62BB8D-30BE-4C85-1156-08D8AA5CDCEB', 'third_file', 'txt', '2020-12-27 13:45:06.710', 2, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
 ('4D7EF38F-2ED4-4BF7-1157-08D8AA5CDCEB', 'fourth_file', 'txt', '2020-12-27 13:45:06.710', 3, '3A0464A1-D2F7-4F0F-A6BF-AFEE704199A1', '{"key":"value","key1":"value1"}'),
