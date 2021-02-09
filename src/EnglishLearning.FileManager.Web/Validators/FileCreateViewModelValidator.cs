@@ -1,15 +1,17 @@
+using System.IO;
 using System.Linq;
 using EnglishLearning.FileManager.Application.Abstract;
+using EnglishLearning.FileManager.Application.Extensions;
 using EnglishLearning.FileManager.Web.ViewModels;
 using FluentValidation;
-using static EnglishLearning.FileManager.Web.Constants.ContentTypeConstants;
+using static EnglishLearning.FileManager.Application.Constants.FileConstants;
 
 namespace EnglishLearning.FileManager.Web.Validators
 {
     public class FileCreateViewModelValidator : AbstractValidator<FileCreateViewModel>
     {
-        private static readonly string[] AcceptedContentTypes = ArchiveContentTypes
-            .Concat(TextFileContentTypes)
+        private static readonly string[] AcceptedFileExtensions = ArchiveFileExtensions
+            .Concat(TextFileExtensions)
             .ToArray();
         
         private readonly IFileService _fileService;
@@ -25,12 +27,13 @@ namespace EnglishLearning.FileManager.Web.Validators
             
             RuleFor(x => x.UploadedFile).NotNull();
 
-            RuleFor(x => x.UploadedFile.ContentType)
-                .Must(x => AcceptedContentTypes.Contains(x))
-                .WithMessage("Only txt, csv, zip files are accepted");
+            RuleFor(x => x.UploadedFile.FileName.GetFileExtension())
+                 .NotNull()
+                 .Must(x => AcceptedFileExtensions.Contains(x))
+                 .WithMessage("Only txt, csv, zip files are accepted");
 
             When(
-                x => TextFileContentTypes.Contains(x.UploadedFile.ContentType), 
+                x => TextFileExtensions.Contains(x.UploadedFile.FileName.GetFileExtension()), 
                 () =>
                 {
                     RuleFor(x => x)
@@ -44,7 +47,7 @@ namespace EnglishLearning.FileManager.Web.Validators
                 });
             
             When(
-                x => ArchiveContentTypes.Contains(x.UploadedFile.ContentType), 
+                x => ArchiveFileExtensions.Contains(x.UploadedFile.FileName.GetFileExtension()), 
                 () =>
                 {
                     RuleFor(x => x)

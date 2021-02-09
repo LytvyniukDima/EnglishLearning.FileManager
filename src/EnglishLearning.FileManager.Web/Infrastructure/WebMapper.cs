@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
+using EnglishLearning.FileManager.Application.Extensions;
 using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Web.ViewModels;
-using static EnglishLearning.FileManager.Web.Constants.ContentTypeConstants;
 
 namespace EnglishLearning.FileManager.Web.Infrastructure
 {
@@ -18,7 +19,7 @@ namespace EnglishLearning.FileManager.Web.Infrastructure
             return new FileCreateModel
             {
                 CreatedBy = createdBy,
-                Extension = ContentTypeFileExtensionMap[file.UploadedFile.ContentType],
+                Extension = file.UploadedFile.FileName.GetFileExtension(),
                 FolderId = file.FolderId,
                 LastModified = DateTime.UtcNow,
                 Metadata = metadata,

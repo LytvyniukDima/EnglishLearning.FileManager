@@ -5,6 +5,8 @@ namespace EnglishLearning.FileManager.Application.Constants
         public static readonly string Txt = "txt";
 
         public static readonly string Zip = "zip";
+
+        public static readonly string Csv = "csv";
         
         public static readonly string[] ArchiveFileExtensions = new[]
         {
@@ -14,6 +16,7 @@ namespace EnglishLearning.FileManager.Application.Constants
         public static readonly string[] TextFileExtensions = new[]
         {
             Txt,
+            Csv,
         };
     }
 }
