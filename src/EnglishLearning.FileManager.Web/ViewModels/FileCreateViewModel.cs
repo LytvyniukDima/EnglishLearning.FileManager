@@ -11,5 +11,7 @@ namespace EnglishLearning.FileManager.Web.ViewModels
         public string Metadata { get; set; }
         
         public IFormFile UploadedFile { get; set; }
+        
+        public string CsvColumnToRead { get; set; }
     }
 }

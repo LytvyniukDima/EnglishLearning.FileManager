@@ -20,7 +20,8 @@ namespace EnglishLearning.FileManager.Application.Configuration
             services
                 .AddTransient<IFileManipulationServiceFactory, FileManipulationServiceFactory>()
                 .AddTransient<TextFileManipulationService>()
-                .AddTransient<ZipFileManipulationService>();
+                .AddTransient<ZipFileManipulationService>()
+                .AddTransient<FromCsvColumnFileManipulationService>();
             
             return services;
         }

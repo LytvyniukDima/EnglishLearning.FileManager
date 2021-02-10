@@ -97,7 +97,7 @@ namespace EnglishLearning.FileManager.Application.Services
 
         public async Task CreateFileAsync(Stream fileStream, FileCreateModel fileCreateModel)
         {
-            var fileManipulationService = _fileManipulationServiceFactory.GetFileManipulationService(fileCreateModel.Extension);
+            var fileManipulationService = _fileManipulationServiceFactory.GetFileManipulationService(fileCreateModel);
 
             await fileManipulationService.CreateFile(fileStream, fileCreateModel);
         }

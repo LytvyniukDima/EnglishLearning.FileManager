@@ -24,6 +24,7 @@ namespace EnglishLearning.FileManager.Web.Infrastructure
                 LastModified = DateTime.UtcNow,
                 Metadata = metadata,
                 Name = file.Name,
+                CsvColumnToRead = file.CsvColumnToRead,
             };
         }
     }
