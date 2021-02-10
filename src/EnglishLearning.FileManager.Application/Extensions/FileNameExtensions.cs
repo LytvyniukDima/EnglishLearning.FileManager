@@ -6,7 +6,13 @@ namespace EnglishLearning.FileManager.Application.Extensions
     {
         public static string GetFileExtension(this string fileName)
         {
-            return Path.GetExtension(fileName).Substring(1);
+            var fileExtension = Path
+                .GetExtension(fileName);
+            fileExtension = string.IsNullOrEmpty(fileExtension)
+                ? string.Empty
+                : fileExtension.Substring(1);
+
+            return fileExtension;
         }
     }
 }
