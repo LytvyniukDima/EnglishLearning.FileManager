@@ -12,7 +12,7 @@ namespace EnglishLearning.FileManager.Application.Extensions
                 ? string.Empty
                 : fileExtension.Substring(1);
 
-            return fileExtension;
+            return fileExtension.ToLower();
         }
     }
 }
