@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using EnglishLearning.FileManager.Application.Abstract;
+using EnglishLearning.FileManager.Application.Models;
 using EnglishLearning.FileManager.Web.ViewModels;
 using EnglishLearning.Utilities.Identity.Abstractions;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,16 @@ namespace EnglishLearning.FileManager.Web.Controllers
     {
         private readonly IFileService _fileService;
         private readonly IJwtInfoProvider _jwtInfoProvider;
+        private readonly IFileUpdateService _fileUpdateService;
         
         public FileController(
             IFileService fileService,
-            IJwtInfoProvider jwtInfoProvider)
+            IJwtInfoProvider jwtInfoProvider,
+            IFileUpdateService fileUpdateService)
         {
             _fileService = fileService;
             _jwtInfoProvider = jwtInfoProvider;
+            _fileUpdateService = fileUpdateService;
         }
 
         [EnglishLearningAuthorize(AuthorizeRole.Admin)]
@@ -69,6 +73,15 @@ namespace EnglishLearning.FileManager.Web.Controllers
             var fileInfos = await _fileService.GetAllFromFolderAsync(folderId);
 
             return Ok(fileInfos);
+        }
+        
+        [EnglishLearningAuthorize(AuthorizeRole.Admin)]
+        [HttpPost("remove-text")]
+        public async Task<ActionResult> RemoveTextFromFile([FromBody] RemoveTextFromFileModel removeTextFromFileModel)
+        {
+            await _fileUpdateService.RemoveTextFromFileAsync(removeTextFromFileModel);
+
+            return Ok();
         }
     }
 }
