@@ -14,7 +14,8 @@ namespace EnglishLearning.FileManager.Application.Configuration
                 .AddTransient<ITreeService, TreeService>()
                 .AddTransient<IFileService, FileService>()
                 .AddTransient<IFolderService, FolderService>()
-                .AddTransient<IFileUpdateService, FileUpdateService>();
+                .AddTransient<IFileUpdateService, FileUpdateService>()
+                .AddTransient<IHtmlParser, HtmlParser>();
 
             services.Configure<FileShareConfiguration>(configuration.GetSection(nameof(FileShareConfiguration)));
 
