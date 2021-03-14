@@ -29,9 +29,10 @@ namespace EnglishLearning.FileManager.Application.Services
             foreach (HtmlNode row in tableNode.SelectNodes("tr"))
             {
                 var values = new List<string>();
-                foreach (HtmlNode cell in row.SelectNodes("td")) 
+                foreach (HtmlNode cell in row.SelectNodes("td"))
                 {
-                    values.Add(cell.InnerText);
+                    var value = cell.InnerText?.Replace(",", " ");
+                    values.Add(value);
                 }
 
                 var line = string.Join(",", values);
